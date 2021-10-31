@@ -1,5 +1,6 @@
-package src;
-
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -7,25 +8,45 @@ import java.util.stream.IntStream;
 1D or 2D array, whichever is easier
 */
 
-public class Board {
+public class Board implements ActionListener{
 
 
     // Generate grid
     public int columns;
     public int rows;
     public int bombCount;
+    public int totalCells;
 
     public int[] cells;
     public int[] bombIndices;
 
-    public final int[] relativeAdjacentCells;
+    public int[] relativeAdjacentCells;
+
+    //frame - the actual GUI window
+    JFrame sweeperFrame = new JFrame();
+
+    //panels for board & info - create layout on GUI
+    JPanel boardSquaresPanel = new JPanel(); //for each minesweeper square
+    JPanel info = new JPanel(); //potential info at top or bottom of GUI?
+
+    //create buttons & info label
+    JLabel GameInfo = new JLabel();
+    Cell[] cellButtons;
+
 
     public Board(int b, int c, int r) {
         bombCount = b;
         columns = c;
         rows = r;
+        totalCells = rows * columns;
 
-        cells = new int[rows * columns];
+        cells = new int[totalCells];
+        cellButtons = new Cell[totalCells];
+
+        for(int i = 0; i < rows * columns; i++)
+        {
+            cellButtons[i].addActionListener(this);
+        }
         relativeAdjacentCells = new int[]{-columns - 1, -columns, -columns + 1, -1, +1, columns - 1, columns, columns + 1};
     }
 
@@ -226,4 +247,11 @@ public class Board {
         System.out.println("┘");
     }
 
+    //for when button is clicked
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        for(int i = 0; i < rows * columns; i++) {
+            //check source & if it is a mine/empty etc.
+        }
+    }
 }

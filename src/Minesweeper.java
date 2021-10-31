@@ -1,7 +1,9 @@
-package src;
-
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.awt.*;
 
 public class Minesweeper {
 
@@ -21,7 +23,6 @@ public class Minesweeper {
 
         // Create Game
         Game game = new Game(bombCount, columns, rows);
-
         System.out.println("Bombs located: " + Arrays.toString(game.board.bombIndices));
 
         game.board.print();

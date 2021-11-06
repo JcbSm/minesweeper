@@ -18,21 +18,21 @@ public class Cell extends JButton {
     private boolean mine;
 
     private final Icon[] numberIconArray = new ImageIcon[]{
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\0.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\1.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\2.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\3.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\4.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\5.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\6.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\7.png"),
-            new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\8.png"),
+            new ImageIcon(getClass().getResource("../resources/0.png")),
+            new ImageIcon(getClass().getResource("../resources/1.png")),
+            new ImageIcon(getClass().getResource("../resources/2.png")),
+            new ImageIcon(getClass().getResource("../resources/3.png")),
+            new ImageIcon(getClass().getResource("../resources/4.png")),
+            new ImageIcon(getClass().getResource("../resources/5.png")),
+            new ImageIcon(getClass().getResource("../resources/6.png")),
+            new ImageIcon(getClass().getResource("../resources/7.png")),
+            new ImageIcon(getClass().getResource("../resources/8.png")),
     };
 
-    private final Icon unclickedIcon = new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\unclicked_cell.png");
-    private final Icon flaggedIcon = new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\flag.png");
-    private final Icon bombIcon = new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\bomb.png");
-    private final Icon clickedBomb = new ImageIcon("C:\\Users\\jacob\\Documents\\GitHub\\minesweeper\\src\\main\\resources\\clicked_bomb.png");
+    private final Icon unclickedIcon = new ImageIcon(getClass().getResource("../resources/unclicked_cell.png"));
+    private final Icon flaggedIcon = new ImageIcon(getClass().getResource("../resources/flag.png"));
+    private final Icon bombIcon = new ImageIcon(getClass().getResource("../resources/bomb.png"));
+    private final Icon clickedBomb = new ImageIcon(getClass().getResource("../resources/clicked_bomb.png"));
 
 
     /**
@@ -46,7 +46,7 @@ public class Cell extends JButton {
         column = j;
         mine = isMine;
 
-        this.setSize(25, 25);
+        this.setPreferredSize(new Dimension(20, 20));
         this.setIcon(unclickedIcon);
 
     }
@@ -89,13 +89,16 @@ public class Cell extends JButton {
         state = 1;
 
         if (isMine()) {
-            this.setIcon(clickedBomb);
             return true;
         } else {
             this.setIcon(numberIconArray[adjacentMines]);
             return false;
         }
 
+    }
+
+    public void fatalMine() {
+        this.setIcon(clickedBomb);
     }
 
     /**

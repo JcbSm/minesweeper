@@ -21,8 +21,7 @@ public class Board implements MouseListener {
      */
     public int state;   // Game state
 
-    public JFrame frame = new JFrame();
-    public JPanel boardPanel = new JPanel();
+    public JPanel panel = new JPanel();
 
     public Cell[][] cells;
 
@@ -46,17 +45,19 @@ public class Board implements MouseListener {
                 // Emit event to this board when cell is clicked
                 cells[i][j].addMouseListener(this);
 
-                boardPanel.add(cells[i][j]);
+                panel.add(cells[i][j]);
 
             }
         }
 
         // Set board panel layout
-        boardPanel.setLayout(new GridLayout(rows, columns));
-        boardPanel.setSize(columns * 26, rows * 26);
+        Dimension dim = new Dimension(columns * 25, rows * 25);
 
-        frame.add(boardPanel);
-        frame.setSize(columns * 26, rows * 26);
+        panel.setLayout(new GridLayout(rows, columns));
+        panel.setPreferredSize(dim);
+        panel.setMinimumSize(dim);
+        panel.setMaximumSize(dim);
+        panel.validate();
 
     }
 
@@ -152,7 +153,9 @@ public class Board implements MouseListener {
 
                 if (cell.column == j && cell.row == i) continue;
 
-                if (cells[i][j].isMine()) count++;
+                if (cells[i][j].isMine()) {
+                    count++;
+                }
 
             }
 
@@ -198,7 +201,9 @@ public class Board implements MouseListener {
                 // For each column
                 for (int j = 0; j < columns; j++) {
 
-                    if (cells[i][j].isMine() && cells[i][i].column != cell.column && cells[i][j].row != cell.row) {
+                    // If cell is a mine
+                    // AND Column and Row aren't the same
+                    if (cells[i][j].isMine()) {
 
                         // Reveal the mine
                         cells[i][j].reveal();
@@ -207,6 +212,7 @@ public class Board implements MouseListener {
                 }
             }
 
+            cell.fatalMine();
             state = 3;
 
         }
